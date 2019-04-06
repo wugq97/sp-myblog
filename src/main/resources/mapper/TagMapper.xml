@@ -2,8 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wugq.blog.mapper.TagMapper">
 
+    <insert id="insert" parameterType="Tag" useGeneratedKeys="true" keyProperty="id">
+        insert into `tag`(name,description,status)
+        values(#{name},#{description},#{status})
+    </insert>
+
+    <update id="update" parameterType="Tag">
+        update `tag`
+        set name = #{name},
+            description = #{description},
+            status = #{status}
+        where id = #{id}
+    </update>
+
     <select id="selectById" parameterType="int" resultType="Tag">
         select * from `tag`
         where id = #{id}
     </select>
+
+    <delete id="delete" parameterType="int">
+        delete from `tag`
+        where id = #{id}
+    </delete>
 </mapper>

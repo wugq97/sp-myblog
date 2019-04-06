@@ -2,4 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wugq.blog.mapper.CategoryMapper">
 
+    <insert id="insert" parameterType="Category" useGeneratedKeys="true" keyProperty="id">
+        insert into `category`(pid,name,description)
+        values(#{pid},#{name},#{description})
+    </insert>
+
+    <update id="update" parameterType="Category">
+        update `category`
+        <set>
+            pid = #{pid},
+            name = #{name},
+            description = #{description}
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="int" resultType="Category">
+        select * from `category`
+        where id = #{id}
+    </select>
+
+    <delete id="delete" parameterType="int">
+        delete from `category`
+        where id = #{id}
+    </delete>
 </mapper>

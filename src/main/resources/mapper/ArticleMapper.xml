@@ -2,8 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wugq.blog.mapper.ArticleMapper">
 
-    <select id="selectById" parameterType="int" resultType="Tag">
+
+    <insert id="insert" parameterType="Article" useGeneratedKeys="true" keyProperty="id">
+        insert into `article`(user_id,title,subtitle,content,category_id_parent,category_id_child,
+        tag_ids,img,views,likes,status)
+        values(#{userId},#{title},#{subtitle},#{content},#{categoryIdParent},#{categoryIdChild},
+        #{tagIds},#{img},#{views},#{likes},#{status})
+
+    </insert>
+
+    <update id="update" parameterType="Article">
+        update `article`
+        <set>
+            title = #{title},
+            subtitle = #{subtitle},
+            content = #{content},
+            category_id_parent = #{categoryIdParent},
+            category_id_child = #{categoryIdChild},
+            tag_ids = #{tagIds},
+            img = #{img},
+            views = #{views},
+            likes = #{likes},
+            status = #{status}
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="selectById" parameterType="int" resultType="Article">
         select * from `article`
         where id = #{id}
     </select>
+
+    <delete id="delete" parameterType="int">
+        delete from `article`
+        where id = #{id}
+    </delete>
 </mapper>

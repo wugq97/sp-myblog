@@ -3,6 +3,9 @@ package com.wugq.blog.mapper;
 import com.wugq.blog.entity.Tag;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface TagMapper {
 
@@ -14,4 +17,7 @@ public interface TagMapper {
 
     int delete(int id);
 
+    List<Tag> selectAll();
+
+    List<Tag> selectByCondition(Map param);
 }

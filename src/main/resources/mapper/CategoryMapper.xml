@@ -22,6 +22,10 @@
         where id = #{id}
     </select>
 
+    <select id="selectAll" resultType="Category">
+        select * from `category`
+    </select>
+
     <delete id="delete" parameterType="int">
         delete from `category`
         where id = #{id}

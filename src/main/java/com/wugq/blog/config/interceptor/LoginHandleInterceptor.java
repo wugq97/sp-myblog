@@ -1,6 +1,6 @@
 package com.wugq.blog.config.interceptor;
 
-import com.wugq.blog.CookieUtil;
+import com.wugq.blog.util.CookieUtil;
 import com.wugq.blog.entity.User;
 import com.wugq.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

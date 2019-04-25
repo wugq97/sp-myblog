@@ -1,4 +1,4 @@
-package com.wugq.blog;
+package com.wugq.blog.util;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

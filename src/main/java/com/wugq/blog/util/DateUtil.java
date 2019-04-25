@@ -1,4 +1,4 @@
-package com.wugq.blog;
+package com.wugq.blog.util;
 
 import com.sun.xml.internal.ws.api.model.CheckedException;
 

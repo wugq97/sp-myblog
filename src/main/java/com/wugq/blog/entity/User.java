@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class User {
+public class User extends BaseBean{
     private int id = 0;
     private String username = "";
     private String email = "";

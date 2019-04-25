@@ -3,7 +3,7 @@ package com.wugq.blog.entity;
 import lombok.Data;
 
 @Data
-public class Notice {
+public class Notice extends BaseBean{
     private int id = 0;
     private String title = "";
     private String content = "";

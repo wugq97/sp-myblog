@@ -15,6 +15,10 @@
         where id = #{id}
     </update>
 
+    <select id="selectAll">
+        select * from `tag` order by id desc
+    </select>
+
     <select id="selectById" parameterType="int" resultType="Tag">
         select * from `tag`
         where id = #{id}
@@ -24,4 +28,13 @@
         delete from `tag`
         where id = #{id}
     </delete>
+
+    <select id="selectByCondition" parameterType="map" resultType="Tag">
+        select * from `tag`
+        where name like concat("%",concat(#{name},"%"))
+        order by id desc
+        <if test="start!=null">
+            limit #{start},#{count}
+        </if>
+    </select>
 </mapper>

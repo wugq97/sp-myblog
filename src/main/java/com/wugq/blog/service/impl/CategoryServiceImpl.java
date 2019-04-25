@@ -6,6 +6,7 @@ import com.wugq.blog.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -27,5 +28,10 @@ public class CategoryServiceImpl implements CategoryService {
 
     public int delete(int id) {
         return categoryMapper.delete(id);
+    }
+
+    @Override
+    public List<Category> selectAll() {
+        return categoryMapper.selectAll();
     }
 }

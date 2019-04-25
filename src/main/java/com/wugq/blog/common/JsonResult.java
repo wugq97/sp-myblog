@@ -1,4 +1,4 @@
-package com.wugq.blog;
+package com.wugq.blog.common;
 
 import java.io.Serializable;
 

@@ -7,8 +7,17 @@
 #    file: %d{yyyy‐MM‐dd} === [%thread] === %‐5level === %logger{50} ==== %msg%n
 
 
-
 spring:
+  redis:
+    host: 127.0.0.1
+    password: 123456
+    port: 6379
+    jedis:
+      pool:
+        max-idle: 100
+        min-idle: 1
+        max-active: 1000
+        max-wait: -1
   devtools:
     restart:
       enabled: false

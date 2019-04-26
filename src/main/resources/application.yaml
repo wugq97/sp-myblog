@@ -6,11 +6,11 @@
 #    # 指定文件中日志输出的格式
 #    file: %d{yyyy‐MM‐dd} === [%thread] === %‐5level === %logger{50} ==== %msg%n
 
-
+debug: true
 spring:
   redis:
     host: 127.0.0.1
-    password: 123456
+    password:
     port: 6379
     jedis:
       pool:

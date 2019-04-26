@@ -1,5 +1,6 @@
 package com.wugq.blog.service.impl;
 
+import com.wugq.blog.common.PageInfo;
 import com.wugq.blog.entity.Tag;
 import com.wugq.blog.mapper.TagMapper;
 import com.wugq.blog.service.TagService;
@@ -27,7 +28,9 @@ public class TagServiceImpl implements TagService {
     }
 
     public Tag selectById(int id) {
-        return tagMapper.selectById(id);
+        Tag tag = tagMapper.selectById(id);
+        System.out.println("9999");
+        return tag;
     }
 
     public int delete(int id) {
@@ -40,7 +43,7 @@ public class TagServiceImpl implements TagService {
         Map<String,Object> param = new HashMap<>();
         param.put("name",name);
         if(pageInfo.isPresent()){
-            param.put("start",pageInfo.get().getStart());
+            param.put("start",pageInfo.get().getStartIndex());
             param.put("count",pageInfo.get().getPerPage());
         }
         return tagMapper.selectByCondition(param);

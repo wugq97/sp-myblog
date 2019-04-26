@@ -13,9 +13,12 @@ public class BlogApplicationTests {
 
     @Autowired
     TagService tagService;
+//    @Autowired
+//    StringRedisTemplate redisTemplate;
 
     @Test
     public void contextLoads() {
+
         System.out.println(tagService.selectById(1));
     }
 

@@ -1,5 +1,6 @@
 package com.wugq.blog.service;
 
+import com.wugq.blog.common.PageInfo;
 import com.wugq.blog.entity.Tag;
 
 import java.util.List;

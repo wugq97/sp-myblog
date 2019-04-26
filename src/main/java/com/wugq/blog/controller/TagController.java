@@ -11,9 +11,9 @@ public class TagController {
     @Autowired
     TagService tagService;
 
-    @GetMapping("/")
+    @GetMapping("/getTag")
     public Object getTags(){
-
+        tagService.selectById(1);
         return null;
     }
 

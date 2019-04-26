@@ -1,5 +1,7 @@
 package com.wugq.blog.config.interceptor;
 
+import com.wugq.blog.entity.User;
+import com.wugq.blog.enums.AuthEnum;
 import com.wugq.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,15 +16,13 @@ public class AdminLoginHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
-//        Cookie tk = CookieUtil.getCookie(request,"tk");
-//        if(tk!=null){
-//            // 到Redis中找用户id
-//            int uid = 0;
-//            User user = userService.selectById(uid);
-//
-//            request.setAttribute("user",user);
-//            return true;
-//        }
-        return false;
+        User user = userService.getLoginUser(request);
+        if(user != null && user.getAuthority() != AuthEnum.NORMAL.getValue()){
+            // 传回权限不足信息
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

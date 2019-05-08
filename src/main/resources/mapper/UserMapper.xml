@@ -14,7 +14,7 @@
             account = #{account},
             password = #{password},
             last_login_ip = #{lastLoginIp},
-            last_login_time = {lastLoginTime},
+            last_login_time = #{lastLoginTime},
             authority = #{authority}
         where id = #{id}
     </update>
@@ -28,4 +28,21 @@
         delete from `user`
         where id = #{id}
     </delete>
+
+    <select id="selectByName" parameterType="map" resultType="User">
+        select * from `user`
+        where account = #{username} and password = #{password}
+    </select>
+
+    <select id="selectByAuthority" parameterType="map" resultType="User">
+        select * from `user`
+        where authority = #{authority}
+        <if test="count != 0">
+            limit #{start},#{count}
+        </if>
+    </select>
+    <select id="selectCountByAuthority" parameterType="map" resultType="int">
+        select count(*) from `user`
+        where authority = #{authority}
+    </select>
 </mapper>

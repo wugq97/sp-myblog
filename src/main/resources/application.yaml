@@ -6,8 +6,11 @@
 #    # 指定文件中日志输出的格式
 #    file: %d{yyyy‐MM‐dd} === [%thread] === %‐5level === %logger{50} ==== %msg%n
 
-debug: true
+#debug: true
+
 spring:
+  jackson:
+    time-zone: GMT+8
   redis:
     host: 127.0.0.1
     password:
@@ -24,7 +27,7 @@ spring:
   datasource:
     username: root
     password: 123456
-    url: jdbc:mysql://127.0.0.1:3306/sp-myblog?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&useServerPrepStmts=true&cachePrepStmts=true
+    url: jdbc:mysql://127.0.0.1:3306/sp-myblog?useUnicode=true&characterEncoding=UTF-8&useTimezone=true&serverTimezone=GMT%2B8&useServerPrepStmts=true&cachePrepStmts=true
     type: com.alibaba.druid.pool.DruidDataSource
     #数据源其他配置
     initialSize: 5

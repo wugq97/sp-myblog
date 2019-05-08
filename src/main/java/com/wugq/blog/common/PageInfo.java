@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PageInfo<T> implements Serializable {
-    private int perPage = 20;
+    private int perPage = 10;
 
     private int currentPage = 1;
 

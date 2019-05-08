@@ -29,12 +29,14 @@
         where id = #{id}
     </delete>
 
-    <select id="selectByCondition" parameterType="map" resultType="Tag">
+    <select id="selectList" parameterType="map" resultType="Tag">
         select * from `tag`
-        where name like concat("%",concat(#{name},"%"))
         order by id desc
         <if test="start!=null">
             limit #{start},#{count}
         </if>
+    </select>
+    <select id="selectCount" resultType="int">
+        select count(*) from `tag`
     </select>
 </mapper>

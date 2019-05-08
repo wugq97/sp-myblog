@@ -2,6 +2,9 @@ package com.wugq.blog.mapper;
 
 import com.wugq.blog.entity.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -13,4 +16,9 @@ public interface UserMapper {
 
     int delete(int id);
 
+    User selectByName(@Param("username") String username, @Param("password") String password);
+
+    List<User> selectByAuthority(@Param("authority")int authority,@Param("start")int start,@Param("count")int count);
+
+    Integer selectCountByAuthority(@Param("authority")int authority);
 }

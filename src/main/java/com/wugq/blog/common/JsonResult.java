@@ -1,7 +1,10 @@
 package com.wugq.blog.common;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+@Data
 public class JsonResult implements Serializable {
 
     private static final long serialVersionUID = -1137477102915470508L;

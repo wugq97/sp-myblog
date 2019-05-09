@@ -1,5 +1,6 @@
 package com.wugq.blog.service.impl;
 
+import com.wugq.blog.common.PageInfo;
 import com.wugq.blog.entity.Category;
 import com.wugq.blog.mapper.CategoryMapper;
 import com.wugq.blog.service.CategoryService;
@@ -30,8 +31,17 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.delete(id);
     }
 
-    @Override
-    public List<Category> selectAll() {
+    public void selectByPage(PageInfo pageInfo) {
+        List<Category> categories = categoryMapper.selectByPage(pageInfo.getStartIndex(),pageInfo.getPerPage());
+        pageInfo.setCount(categoryMapper.selectCount(false));
+        pageInfo.setItems(categories);
+    }
+
+    public List<Category> getParentCategories() {
+        return categoryMapper.getParentCategories();
+    }
+
+    public List<Category> getAll() {
         return categoryMapper.selectAll();
     }
 }

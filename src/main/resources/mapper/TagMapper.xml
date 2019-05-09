@@ -32,7 +32,7 @@
     <select id="selectList" parameterType="map" resultType="Tag">
         select * from `tag`
         order by id desc
-        <if test="start!=null">
+        <if test="count!=0">
             limit #{start},#{count}
         </if>
     </select>

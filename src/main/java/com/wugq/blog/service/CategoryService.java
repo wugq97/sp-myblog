@@ -1,5 +1,6 @@
 package com.wugq.blog.service;
 
+import com.wugq.blog.common.PageInfo;
 import com.wugq.blog.entity.Category;
 
 import java.util.List;
@@ -13,5 +14,9 @@ public interface CategoryService {
 
     int delete(int id);
 
-    List<Category> selectAll();
+    void selectByPage(PageInfo pageInfo);
+
+    List<Category> getParentCategories();
+
+    List<Category> getAll();
 }

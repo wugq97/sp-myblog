@@ -2,6 +2,8 @@ package com.wugq.blog.enums;
 
 public enum ErrorCodeEnum {
 
+    NOFILE(10,"文件为空"),
+
     NOUSER(10000,"无此用户"),
 
     EXPIRE(10001,"token过期"),

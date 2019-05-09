@@ -28,6 +28,9 @@ public class PageInfo<T> implements Serializable {
 
     public void setCount(int count) {
         this.count = count;
+        if(this.perPage == 0) {
+            return;
+        }
         if (this.count % this.perPage == 0) {
             this.maxPage = this.count / this.perPage;
         } else {

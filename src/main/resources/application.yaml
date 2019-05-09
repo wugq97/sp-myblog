@@ -7,7 +7,9 @@
 #    file: %d{yyyy‐MM‐dd} === [%thread] === %‐5level === %logger{50} ==== %msg%n
 
 #debug: true
-
+logging:
+  level:
+    com.wugq.blog.mapper : debug
 spring:
   jackson:
     time-zone: GMT+8

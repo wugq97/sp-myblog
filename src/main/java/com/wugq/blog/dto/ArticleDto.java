@@ -20,4 +20,5 @@ public class ArticleDto extends BaseBean {
     private String img = "";
     private int views = 0;
     private int likes = 0;
+    private int status = 0;
 }

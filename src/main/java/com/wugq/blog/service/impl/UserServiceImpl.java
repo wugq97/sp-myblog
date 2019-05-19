@@ -92,4 +92,17 @@ public class UserServiceImpl implements UserService {
         });
         pageInfo.setItems(dtos);
     }
+
+    @Override
+    public boolean getUserByName(String username) {
+        int num = userMapper.selectByUserName(username);
+        if(num > 0)
+            return true;
+        return false;
+    }
+
+    @Override
+    public int updatePassword(int id, String oldPassword, String newPassword) {
+        return userMapper.updatePassword(id,oldPassword,newPassword);
+    }
 }

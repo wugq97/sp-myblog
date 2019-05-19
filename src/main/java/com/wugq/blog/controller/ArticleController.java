@@ -5,6 +5,7 @@ import com.wugq.blog.common.PageInfo;
 import com.wugq.blog.entity.Article;
 import com.wugq.blog.service.ArticleService;
 import com.wugq.blog.service.CategoryService;
+import com.wugq.blog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,8 @@ public class ArticleController {
     ArticleService articleService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    CommentService commentService;
 
     @GetMapping("/admin/articles")
     public Object getArticles(int uid, int page, int pageSize,
@@ -40,7 +43,7 @@ public class ArticleController {
     @PostMapping("/admin/articles")
     public Object addArticle(Article article) {
         if("".equals(article.getImg())){
-            String img = "/image/random/img_" + (int)(400*Math.random()) + ".jpg";
+            String img = "image/random/img_" + (int)(400*Math.random()) + ".jpg";
             article.setImg(img);
         }
         articleService.insert(article);
@@ -49,6 +52,9 @@ public class ArticleController {
 
     @PutMapping("/admin/articles")
     public Object updateArticle(Article article) {
+        Article newA = articleService.selectById(article.getId());
+        article.setLikes(newA.getLikes());
+        article.setViews(newA.getViews());
         articleService.update(article);
         return new JsonResult(true);
     }
@@ -56,6 +62,15 @@ public class ArticleController {
     @DeleteMapping("admin/articles/{id}")
     public Object deleteArticle(@PathVariable("id") int id) {
         articleService.delete(id);
+        commentService.deleteByArticle(id);
+        return new JsonResult(true);
+    }
+
+    @PostMapping("/admin/recommend")
+    public Object recommend(int id, int status) {
+        Article article = articleService.selectById(id);
+        article.setStatus(status);
+        articleService.update(article);
         return new JsonResult(true);
     }
 }

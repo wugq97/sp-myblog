@@ -21,4 +21,8 @@ public interface UserMapper {
     List<User> selectByAuthority(@Param("authority")int authority,@Param("start")int start,@Param("count")int count);
 
     Integer selectCountByAuthority(@Param("authority")int authority);
+
+    int selectByUserName(@Param("username") String username);
+
+    int updatePassword(@Param("id")int id, @Param("oldPassword") String oldPassword,@Param("newPassword") String newPassword);
 }

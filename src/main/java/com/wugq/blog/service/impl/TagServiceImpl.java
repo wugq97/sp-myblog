@@ -1,5 +1,6 @@
 package com.wugq.blog.service.impl;
 
+import com.wugq.blog.annotation.MyLog;
 import com.wugq.blog.common.PageInfo;
 import com.wugq.blog.entity.Tag;
 import com.wugq.blog.mapper.ArticleMapper;
@@ -22,10 +23,12 @@ public class TagServiceImpl implements TagService {
     @Resource
     ArticleMapper articleMapper;
 
+    @MyLog(value = "新增标签", kind = "tag", operator = "add")
     public int insert(Tag tag) {
         return tagMapper.insert(tag);
     }
 
+    @MyLog(value = "更新标签", kind = "tag", operator = "update")
     public int update(Tag tag) {
         return tagMapper.update(tag);
     }
@@ -36,6 +39,7 @@ public class TagServiceImpl implements TagService {
         return tag;
     }
 
+    @MyLog(value = "删除标签", kind = "tag", operator = "delete")
     public int delete(int id) {
         return tagMapper.delete(id);
     }
@@ -56,5 +60,15 @@ public class TagServiceImpl implements TagService {
             result.add(map);
         });
         pageInfo.setItems(result);
+    }
+
+    @Override
+    public int getNums() {
+        return tagMapper.selectCount();
+    }
+
+    @Override
+    public List<Tag> getAll() {
+        return tagMapper.selectAll();
     }
 }

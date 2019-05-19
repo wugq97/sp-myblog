@@ -17,4 +17,8 @@ public interface TagService {
     List<Tag> selectAll();
 
     void getTags(PageInfo pageInfo);
+
+    int getNums();
+
+    List<Tag> getAll();
 }

@@ -15,7 +15,7 @@
         where id = #{id}
     </update>
 
-    <select id="selectAll">
+    <select id="selectAll" resultType="Tag">
         select * from `tag` order by id desc
     </select>
 

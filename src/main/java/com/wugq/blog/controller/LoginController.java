@@ -42,4 +42,20 @@ public class LoginController {
         userService.deleteToken(request);
         return new JsonResult("重新登录");
     }
+
+    @PostMapping("/logon")
+    public Object logon(String username,String password) {
+        boolean exist = userService.getUserByName(username);
+        if (exist) {
+            return new JsonResult(true,2);
+        } else {
+            User user = new User();
+            user.setAuthority(3);
+            user.setAccount(username);
+            user.setUsername(username);
+            user.setPassword(password);
+            userService.insert(user);
+        }
+        return new JsonResult(true);
+    }
 }

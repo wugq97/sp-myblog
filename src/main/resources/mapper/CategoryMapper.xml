@@ -46,7 +46,16 @@
         where pid = 0
     </select>
 
+    <select id="getChildCategories" resultType="Category">
+        select * from `category`
+        where pid != 0
+    </select>
+
     <select id="selectAll" resultType="Category">
         select * from `category`
+    </select>
+
+    <select id="selectNums" resultType="int">
+        select count(*) from `category`
     </select>
 </mapper>

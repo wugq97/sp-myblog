@@ -22,4 +22,5 @@ public interface TagMapper {
     List<Tag> selectList(@Param("start") Integer start,@Param("count") Integer count);
 
     Integer selectCount();
+
 }

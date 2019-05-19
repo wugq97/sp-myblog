@@ -7,7 +7,9 @@ import com.wugq.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class CategoryController {
@@ -50,5 +52,16 @@ public class CategoryController {
     public Object deleteCategory(@PathVariable("id") Integer id) {
         categoryService.delete(id);
         return new JsonResult(true);
+    }
+
+    /* 前台 */
+    @GetMapping("/front/categories")
+    public Object getAllCategories() {
+        Map<String,Object> result = new HashMap<>();
+        List<Category> parentCategories = categoryService.getParentCategories();
+        List<Category> childCategories = categoryService.getChildCategories();
+        result.put("parents",parentCategories);
+        result.put("child",childCategories);
+        return new JsonResult(result);
     }
 }

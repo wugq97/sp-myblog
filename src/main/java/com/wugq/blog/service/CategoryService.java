@@ -18,5 +18,9 @@ public interface CategoryService {
 
     List<Category> getParentCategories();
 
+    List<Category> getChildCategories();
+
     List<Category> getAll();
+
+    int getNums();
 }

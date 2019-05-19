@@ -22,5 +22,9 @@ public interface CategoryMapper {
 
     List<Category> getParentCategories();
 
+    List<Category> getChildCategories();
+
     List<Category> selectAll();
+
+    int selectNums();
 }

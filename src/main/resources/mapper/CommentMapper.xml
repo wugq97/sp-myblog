@@ -3,8 +3,8 @@
 <mapper namespace="com.wugq.blog.mapper.CommentMapper">
 
     <insert id="insert" parameterType="Comment" useGeneratedKeys="true" keyProperty="id">
-        insert into `comment`(article_id,pid,username,content)
-        values(#{articleId},#{pid},#{username},#{content})
+        insert into `comment`(article_id,pid,username,content,reply_name)
+        values(#{articleId},#{pid},#{username},#{content},#{replyName})
     </insert>
 
     <update id="update" parameterType="Comment">
@@ -12,7 +12,8 @@
         set article_id = #{articleId},
             pid = #{pid},
             username = #{username},
-            content = #{content}
+            content = #{content},
+            reply_name = #{replyName}
         where id = #{id}
     </update>
 
@@ -24,5 +25,39 @@
     <delete id="delete" parameterType="int">
         delete from `comment`
         where id = #{id}
+    </delete>
+
+    <select id="selectNums" resultType="int">
+        select count(*) from `comment`
+    </select>
+
+    <select id="selectHotArticleIds" resultType="int">
+        select article_id from `comment`
+          group by article_id
+          order by count(*) desc
+          limit 0,8
+    </select>
+
+    <select id="selectByArticle" parameterType="map" resultType="Comment">
+        select * from `comment`
+        where article_id = #{articleId}
+        <if test="isParent == 1">
+            and pid = 0
+            order by id desc
+        </if>
+        <if test="isParent == 2">
+            and pid != 0
+            order by id asc
+        </if>
+    </select>
+
+    <select id="select" parameterType="map" resultType="Comment">
+        select * from `comment`
+        limit #{start},#{count}
+    </select>
+
+    <delete id="deleteByArticle" parameterType="map">
+        delete from `comment`
+        where article_id = #{articleId}
     </delete>
 </mapper>

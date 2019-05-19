@@ -63,6 +63,7 @@
         select * from `article`
         where 1=1
         <include refid="conditionSql"/>
+        order by id desc
         <if test="count!=0">
             limit #{start},#{count}
         </if>
@@ -72,5 +73,65 @@
         select count(*) from `article`
         where 1=1
         <include refid="conditionSql"/>
+    </select>
+
+    <select id="selectNums" resultType="int">
+        select count(*) from `article`
+    </select>
+
+    <select id="selectLastUpdated" resultType="java.util.Date">
+        select max(updated_at) from `article`
+    </select>
+
+    <select id="selectHot" parameterType="map" resultType="Article">
+        select * from `article`
+        <if test="ids != null and ids.size > 0">
+        where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+          #{id}
+        </foreach>
+        order by field(id,
+            <foreach collection="ids" item="id" separator=",">
+                #{id}
+            </foreach>
+        )
+        </if>
+        limit 0,8
+    </select>
+
+    <sql id="front">
+        <if test="category != 0">
+            and (category_id_parent = #{category} or category_id_child = #{category})
+        </if>
+        <if test="tag !=0 ">
+            and tag_ids regexp '(^|,)${tag}($|,)'
+        </if>
+    </sql>
+
+    <select id="selectFront" parameterType="map" resultType="Article">
+        select * from `article`
+        where 1=1
+        <include refid="front"/>
+        order by id desc
+        <if test="count != 0">
+            limit #{start},#{count}
+        </if>
+    </select>
+
+    <select id="selectCountFront" parameterType="map" resultType="int">
+        select count(*) from `article`
+        where 1=1
+        <include refid="front"/>
+    </select>
+
+    <select id="selectSearch" resultType="Article">
+        select * from `article`
+        where title like '%${text}%' or subtitle like '%${text}%' or content like '%${text}%'
+    </select>
+
+    <select id="selectRecommend" resultType="Article">
+        select * from `article`
+        where status = 1
+        order by id desc
     </select>
 </mapper>

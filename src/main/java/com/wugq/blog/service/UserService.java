@@ -26,4 +26,8 @@ public interface UserService {
     User validate(String username,String password);
 
     void getUsers(Integer authority, PageInfo pageInfo);
+
+    boolean getUserByName(String username);
+
+    int updatePassword(int id,String oldPassword,String newPassword);
 }

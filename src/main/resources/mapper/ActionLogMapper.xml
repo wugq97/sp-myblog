@@ -3,8 +3,8 @@
 <mapper namespace="com.wugq.blog.mapper.ActionLogMapper">
 
     <insert id="insert" parameterType="ActionLog" useGeneratedKeys="true" keyProperty="id">
-        insert into `action_log`(action,object,user_id,ip)
-        values(#{action},#{object},#{userId},#{ip})
+        insert into `action_log`(action,object,user,ip)
+        values(#{action},#{object},#{user},#{ip})
     </insert>
 
     <update id="update" parameterType="ActionLog">
@@ -12,7 +12,7 @@
         <set>
             action = #{action},
             object = #{object},
-            user_id = #{userId},
+            user = #{user},
             ip = #{ip}
         </set>
         where id = #{id}

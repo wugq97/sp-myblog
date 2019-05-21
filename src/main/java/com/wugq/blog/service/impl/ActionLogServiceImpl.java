@@ -6,6 +6,7 @@ import com.wugq.blog.service.ActionLogService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ActionLogServiceImpl implements ActionLogService {
@@ -27,5 +28,10 @@ public class ActionLogServiceImpl implements ActionLogService {
 
     public int delete(int id) {
         return actionLogMapper.delete(id);
+    }
+
+    @Override
+    public List<ActionLog> getLogs() {
+        return actionLogMapper.selectAll();
     }
 }

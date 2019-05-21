@@ -3,6 +3,7 @@ package com.wugq.blog.controller;
 import com.wugq.blog.common.JsonResult;
 import com.wugq.blog.common.PageInfo;
 import com.wugq.blog.entity.Category;
+import com.wugq.blog.service.ArticleService;
 import com.wugq.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,8 @@ public class CategoryController {
 
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    ArticleService articleService;
 
     @GetMapping("/admin/categories")
     public Object getCategories(Integer page,Integer pageSize) {
@@ -50,6 +53,10 @@ public class CategoryController {
 
     @DeleteMapping("/admin/categories/{id}")
     public Object deleteCategory(@PathVariable("id") Integer id) {
+        int num = articleService.selectByCategory(id);
+        if(num > 0) {
+            return new JsonResult(false);
+        }
         categoryService.delete(id);
         return new JsonResult(true);
     }

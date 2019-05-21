@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
-    private Long expire = 60 * 60 * 12L; // seconds
+    private Long expire = 60 * 60 * 24L; // seconds
 
     public String setToken(Integer id) {
         String token = UUID.randomUUID().toString();
@@ -38,7 +38,11 @@ public class UserServiceImpl implements UserService {
 
     public void deleteToken(HttpServletRequest request) {
         String token = request.getParameter("tk");
-        stringRedisTemplate.delete(token);
+        try{
+            stringRedisTemplate.delete(token);
+        } catch (Exception e) {
+            System.out.println("无此token");
+        }
     }
 
     public User getByToken(String token) {

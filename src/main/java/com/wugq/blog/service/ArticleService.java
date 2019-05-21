@@ -28,4 +28,6 @@ public interface ArticleService {
     List<Article> getSearchArticles(String text);
 
     List<Article> getRecommend();
+
+    Integer selectByCategory(int categoryId);
 }

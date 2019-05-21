@@ -4,7 +4,7 @@ public enum ErrorCodeEnum {
 
     NOFILE(10,"文件为空"),
 
-    NOUSER(10000,"无此用户"),
+    NOUSER(10000,"无此用户或密码错误"),
 
     EXPIRE(10001,"token过期"),
 

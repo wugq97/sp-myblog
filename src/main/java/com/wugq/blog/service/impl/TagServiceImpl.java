@@ -35,7 +35,6 @@ public class TagServiceImpl implements TagService {
 
     public Tag selectById(int id) {
         Tag tag = tagMapper.selectById(id);
-        System.out.println("9999");
         return tag;
     }
 

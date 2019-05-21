@@ -41,4 +41,6 @@ public interface ArticleMapper {
     List<Article> selectSearch(@Param("text") String text);
 
     List<Article> selectRecommend();
+
+    int selectByCategory(@Param("categoryId") int categoryId);
 }

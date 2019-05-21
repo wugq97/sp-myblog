@@ -134,4 +134,9 @@
         where status = 1
         order by id desc
     </select>
+
+    <select id="selectByCategory" parameterType="map" resultType="int">
+        select count(*) from `article`
+        where category_id_parent = #{categoryId} or category_id_child = #{categoryId}
+    </select>
 </mapper>

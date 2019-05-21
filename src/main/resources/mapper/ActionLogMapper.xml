@@ -8,7 +8,7 @@
     </insert>
 
     <update id="update" parameterType="ActionLog">
-        update `article_log`
+        update `action_log`
         <set>
             action = #{action},
             object = #{object},
@@ -24,7 +24,12 @@
     </select>
 
     <delete id="delete" parameterType="int">
-        delete from `article_log`
+        delete from `action_log`
         where id = #{id}
     </delete>
+
+    <select id="selectAll" resultType="ActionLog">
+        select * from `action_log`
+        order by id desc
+    </select>
 </mapper>

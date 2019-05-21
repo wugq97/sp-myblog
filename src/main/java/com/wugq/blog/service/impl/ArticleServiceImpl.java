@@ -142,4 +142,9 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> getRecommend() {
         return articleMapper.selectRecommend();
     }
+
+    @Override
+    public Integer selectByCategory(int categoryId) {
+        return articleMapper.selectByCategory(categoryId);
+    }
 }

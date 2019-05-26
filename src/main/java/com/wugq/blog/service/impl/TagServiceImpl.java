@@ -6,6 +6,9 @@ import com.wugq.blog.entity.Tag;
 import com.wugq.blog.mapper.ArticleMapper;
 import com.wugq.blog.mapper.TagMapper;
 import com.wugq.blog.service.TagService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,16 +32,20 @@ public class TagServiceImpl implements TagService {
     }
 
     @MyLog(value = "更新标签", kind = "tag", operator = "update")
-    public int update(Tag tag) {
-        return tagMapper.update(tag);
+    @CachePut(value="tag",key="#tag.id")
+    public Tag update(Tag tag) {
+         tagMapper.update(tag);
+         return tag;
     }
 
+    @Cacheable(value = "tag",key = "#id",condition = "#id>0")
     public Tag selectById(int id) {
         Tag tag = tagMapper.selectById(id);
         return tag;
     }
 
     @MyLog(value = "删除标签", kind = "tag", operator = "delete")
+    @CacheEvict(value = "tag", key = "#id")
     public int delete(int id) {
         return tagMapper.delete(id);
     }

@@ -8,7 +8,7 @@ import java.util.List;
 public interface TagService {
     int insert(Tag tag);
 
-    int update(Tag tag);
+    Tag update(Tag tag);
 
     Tag selectById(int id);
 

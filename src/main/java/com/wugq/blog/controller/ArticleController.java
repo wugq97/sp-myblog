@@ -1,5 +1,6 @@
 package com.wugq.blog.controller;
 
+import com.wugq.blog.annotation.MyLog;
 import com.wugq.blog.common.JsonResult;
 import com.wugq.blog.common.PageInfo;
 import com.wugq.blog.entity.Article;
@@ -51,6 +52,7 @@ public class ArticleController {
     }
 
     @PutMapping("/admin/articles")
+    @MyLog(value = "更新文章", kind = "article", operator = "update")
     public Object updateArticle(Article article) {
         Article newA = articleService.selectById(article.getId());
         article.setLikes(newA.getLikes());

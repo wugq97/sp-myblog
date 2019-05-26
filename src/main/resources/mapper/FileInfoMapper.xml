@@ -7,4 +7,53 @@
         values(#{uid},#{flag},#{status},#{filename},#{identifier},#{totalSize},#{type},#{location})
     </insert>
 
+    <select id="select" resultType="FileInfo">
+        select * from `file`
+        where id = #{id}
+    </select>
+
+    <update id="update" parameterType="FileInfo">
+        update `file`
+        <set>
+            uid = #{uid},
+            flag = #{flag},
+            status = #{status},
+            filename = #{filename},
+            identifier = #{identifier},
+            totalSize = #{totalSize},
+            type = #{type},
+            location = #{location}
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        delete from `file`
+        where id = #{id}
+    </delete>
+
+    <select id="getFiles" parameterType="map" resultType="FileInfo">
+        select * from `file`
+        where 1=1
+        <if test="uid!=null">
+           and uid = #{uid}
+        </if>
+        <if test="flag!=null">
+           and flag = #{flag}
+        </if>
+        <if test="status!=null">
+           and status = #{status}
+        </if>
+    </select>
+
+    <select id="selectAdminFiles" parameterType="map" resultType="FileInfo">
+        select * from `file`
+        where flag = #{flag}
+        limit #{start},#{count}
+    </select>
+
+    <select id="selectCountAdminFiles" parameterType="map" resultType="int">
+        select count(*) from `file`
+        where flag = #{flag}
+    </select>
 </mapper>

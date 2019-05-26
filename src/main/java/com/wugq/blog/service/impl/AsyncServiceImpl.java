@@ -1,45 +1,27 @@
-package com.wugq.blog.util;
+package com.wugq.blog.service.impl;
 
-import com.wugq.blog.entity.file.Chunk;
+import com.wugq.blog.service.AsyncService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+@Service
 @Slf4j
-public class FileUtil {
+public class AsyncServiceImpl implements AsyncService {
 
-
-    public static String generatePath(String uploadFolder, Chunk chunk) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(uploadFolder).append("/").append(chunk.getIdentifier());
-        //判断uploadFolder/identifier 路径是否存在，不存在则创建
-        if (!Files.isWritable(Paths.get(sb.toString()))) {
-            log.info("path not exist,create path: {}", sb.toString());
-            try {
-                Files.createDirectories(Paths.get(sb.toString()));
-            } catch (IOException e) {
-                log.error(e.getMessage(), e);
-            }
-        }
-        return sb.append("/")
-                .append(chunk.getFilename())
-                .append("-")
-                .append(chunk.getChunkNumber()).toString();
-    }
-
-
-    /**
-     * 文件合并
-     *
-     * @param targetFile
-     * @param folder
-     */
-
-    public static void merge(String targetFile, String folder, String filename) {
+    @Override
+    @Async("taskExecutor")
+    public void merge(String targetFile, String folder, String filename) {
         try {
+            if(new File(targetFile).exists()) {
+                return;
+            }
             Files.createFile(Paths.get(targetFile));
             Files.list(Paths.get(folder))
                     .filter(path -> !path.getFileName().toString().equals(filename))
@@ -52,9 +34,7 @@ public class FileUtil {
                     })
                     .forEach(path -> {
                         try {
-                            //以追加的形式写入文件
                             Files.write(Paths.get(targetFile), Files.readAllBytes(path), StandardOpenOption.APPEND);
-                            //合并后删除该块
                             Files.delete(path);
                         } catch (IOException e) {
                             log.error(e.getMessage(), e);
@@ -64,5 +44,4 @@ public class FileUtil {
             log.error(e.getMessage(), e);
         }
     }
-
 }

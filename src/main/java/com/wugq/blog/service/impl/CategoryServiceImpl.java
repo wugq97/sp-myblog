@@ -5,6 +5,9 @@ import com.wugq.blog.common.PageInfo;
 import com.wugq.blog.entity.Category;
 import com.wugq.blog.mapper.CategoryMapper;
 import com.wugq.blog.service.CategoryService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,15 +25,19 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @MyLog(value = "更新类别", kind = "category", operator = "update")
-    public int update(Category category) {
-        return categoryMapper.update(category);
+    @CachePut(value="category",key="#category.id")
+    public Category update(Category category) {
+         categoryMapper.update(category);
+         return category;
     }
 
+    @Cacheable(value = "category",key = "#id",condition = "#id>0")
     public Category selectById(int id) {
         return categoryMapper.selectById(id);
     }
 
     @MyLog(value = "删除类别", kind = "category", operator = "delete")
+    @CacheEvict(value = "category", key = "#id")
     public int delete(int id) {
         return categoryMapper.delete(id);
     }

@@ -46,7 +46,11 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getByToken(String token) {
-        String id = stringRedisTemplate.opsForValue().get(token);
+        String id = "";
+        try{
+            id = stringRedisTemplate.opsForValue().get(token);
+        } catch (IllegalArgumentException e) {
+        }
         return selectById(Integer.parseInt(Optional.ofNullable(id).orElse("0")));
     }
 

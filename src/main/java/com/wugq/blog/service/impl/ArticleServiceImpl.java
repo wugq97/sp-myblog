@@ -10,6 +10,9 @@ import com.wugq.blog.entity.User;
 import com.wugq.blog.mapper.ArticleMapper;
 import com.wugq.blog.service.*;
 import com.wugq.blog.util.DateUtil;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -35,16 +38,19 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.insert(article);
     }
 
-    @MyLog(value = "更新文章", kind = "article", operator = "update")
-    public int update(Article article) {
-        return articleMapper.update(article);
+    @CachePut(value="article",key="#article.id")
+    public Article update(Article article) {
+         articleMapper.update(article);
+         return article;
     }
 
+    @Cacheable(value = "article",key = "#id",condition = "#id>0")
     public Article selectById(int id) {
         return articleMapper.selectById(id);
     }
 
     @MyLog(value = "删除文章", kind = "article", operator = "delete")
+    @CacheEvict(value = "article", key = "#id")
     public int delete(int id) {
         return articleMapper.delete(id);
     }

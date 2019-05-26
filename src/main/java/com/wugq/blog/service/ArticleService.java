@@ -9,7 +9,7 @@ import java.util.List;
 public interface ArticleService {
     int insert(Article article);
 
-    int update(Article article);
+    Article update(Article article);
 
     Article selectById(int id);
 

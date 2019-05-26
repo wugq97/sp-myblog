@@ -24,6 +24,7 @@
 
     <select id="selectByPage" parameterType="map" resultType="Category">
         select * from `category`
+        order by id desc
         <if test="count != 0">
             limit #{start},#{count}
         </if>

@@ -10,6 +10,9 @@
 #logging:
 #  level:
 #    com.wugq.blog.mapper : debug
+
+server:
+  max-http-header-size: 10000000
 spring:
   servlet:
     multipart:

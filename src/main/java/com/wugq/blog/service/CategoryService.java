@@ -8,7 +8,7 @@ import java.util.List;
 public interface CategoryService {
     int insert(Category category);
 
-    int update(Category category);
+    Category update(Category category);
 
     Category selectById(int id);
 
